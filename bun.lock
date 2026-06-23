@@ -16,9 +16,17 @@
       "version": "0.0.0",
       "dependencies": {
         "commander": "^15.0.0",
+        "linkit-core": "workspace:*",
       },
       "devDependencies": {
         "@types/node": "^26.0.0",
+      },
+    },
+    "packages/core": {
+      "name": "linkit-core",
+      "version": "0.0.0",
+      "dependencies": {
+        "zod": "^4.4.3",
       },
     },
   },
@@ -29,8 +37,12 @@
 
     "linkit": ["linkit@workspace:packages/cli"],
 
+    "linkit-core": ["linkit-core@workspace:packages/core"],
+
     "prettier": ["prettier@3.8.4", "", { "bin": { "prettier": "bin/prettier.cjs" } }, "sha512-N2MylSdi48+5N/6S5j+maeHbUSIzzZ5uOcX5Hm4QpV8Dkb1HFjfAKTKX6yNPJQD9AhcT3ifHNB66tWTTJDi11Q=="],
 
     "undici-types": ["undici-types@8.3.0", "", {}, "sha512-j375ScV60dom+YkPFIfTLcOiPxkN/buHz5GobjLhixFuANaNs3C9l4GmrWqejgXWJ7BbJcFYpTEUkS1Ge8bpZQ=="],
+
+    "zod": ["zod@4.4.3", "", {}, "sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ=="],
   }
 }

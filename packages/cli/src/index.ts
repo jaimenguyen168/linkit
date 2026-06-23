@@ -1,4 +1,5 @@
 import { Command } from "commander";
+import { sendTelegramMessage } from "linkit-core";
 
 type TelegramResponse = {
   ok: boolean;
@@ -35,30 +36,19 @@ program
       process.exit(1);
     }
 
-    const response = await fetch(
-      `https://api.telegram.org/bot${token}/sendMessage`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ chat_id: chatId, text: message }),
-      },
-    );
+    try {
+      const result = await sendTelegramMessage({
+        chatId,
+        message,
+        botToken: token,
+      });
 
-    const data = (await response.json()) as TelegramResponse;
-
-    if (!response.ok || !data.ok) {
-      const detail = data.description ?? response.statusText;
-      console.error(`Failed to send message to Telegram: ${detail}`);
+      console.log("Message sent to Telegram chat ID:", result.chatId);
+      console.log("Message ID:", result.messageId);
+    } catch (error) {
+      const detail = error instanceof Error ? error.message : String(error);
+      console.error("Failed to send message to Telegram:", detail);
       process.exit(1);
-    }
-
-    const messageId = data.result?.message_id;
-    console.log(`Message sent to Telegram chat ID: ${chatId}`);
-
-    if (messageId !== undefined) {
-      console.log(`Message ID: ${messageId}`);
     }
   });
 
