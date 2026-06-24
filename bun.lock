@@ -11,6 +11,18 @@
         "@types/node": "^26.0.0",
       },
     },
+    "apps/remote-mcp": {
+      "name": "linkit-remote-mcp",
+      "version": "0.0.0",
+      "dependencies": {
+        "@modelcontextprotocol/sdk": "^1.29.0",
+        "hono": "^4.12.27",
+        "linkit-core": "workspace:*",
+      },
+      "devDependencies": {
+        "@types/node": "^26.0.0",
+      },
+    },
     "packages/cli": {
       "name": "linkit",
       "version": "0.0.0",
@@ -154,6 +166,8 @@
     "linkit-core": ["linkit-core@workspace:packages/core"],
 
     "linkit-mcp": ["linkit-mcp@workspace:packages/local-mcp"],
+
+    "linkit-remote-mcp": ["linkit-remote-mcp@workspace:apps/remote-mcp"],
 
     "math-intrinsics": ["math-intrinsics@1.1.0", "", {}, "sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g=="],
 
