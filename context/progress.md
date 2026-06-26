@@ -1,0 +1,62 @@
+# Progress Tracker
+
+Update this file after every meaningful implementation change.
+
+## Current Phase
+
+- In progress
+
+## Current Goal
+
+- Awaiting next feature spec.
+
+## Completed
+
+---
+
+- Initial Commit: CLI scaffolding with Commander.js — `packages/cli` with `linkit` command, accepts `<chatId>` and `<message>` arguments, reads `TELEGRAM_BOT_TOKEN` from environment, sends message via Telegram Bot API using inline fetch.
+
+---
+
+- 00 — Core Package: extracted `linkit-core` as a shared workspace package. `packages/core` with `sendTelegramMessage` operation, Zod schemas for Telegram API input/output validation. CLI refactored to import from `linkit-core` instead of using inline fetch. `linkit-core` added as workspace dependency in CLI.
+
+---
+
+- 01 — Local MCP: `packages/local-mcp` added as an MCP server. Exposes `sendTelegramMessage` from `linkit-core` as an MCP tool via stdio transport. `dev:local-mcp` script added to root `package.json`. `.mcp.json` configured for Claude Code integration.
+
+---
+
+- 02 — Remote MCP: `apps/remote-mcp` added — Hono HTTP server with MCP streamable transport. Exposes `sendTelegramMessage` as a stateless MCP tool via `/:botToken/mcp` route. `dev:remote-mcp` script added to root `package.json`.
+
+---
+
+- 03 — OAuth: Clerk OAuth authentication added to remote MCP server. `/:botToken/mcp` route protected with Bearer token via `@clerk/backend`. `/.well-known/oauth-protected-resource` metadata endpoint exposed for MCP client discovery. `CLERK_PUBLISHABLE_KEY` and `CLERK_SECRET_KEY` added to `.env.example`.
+
+---
+
+## In Progress
+
+- None.
+
+## Next Up
+
+- Next feature spec when defined.
+
+## Open Questions
+
+- None currently.
+
+## Architecture Decisions
+
+- Monorepo with Bun workspaces: `packages/` for shared/internal packages, `apps/` for deployable services.
+- `linkit-core` is the single source of truth for Telegram logic and Zod schemas — both CLI and MCP servers consume it.
+- Remote MCP uses a stateless per-request pattern: each request creates and closes its own `McpServer` instance.
+- Bot token is passed as a URL path param (`/:botToken/mcp`) so the same deployment can serve multiple bots without re-deployment.
+- Clerk OAuth protects the remote MCP endpoint; local MCP relies on stdio (inherently local, no auth needed).
+
+## Session Notes
+
+- Package manager: Bun with workspaces.
+- `.env` holds live credentials (gitignored); `.env.example` documents required keys.
+- `.mcp.json` and `opencode.json` are gitignored — contain local bot token and MCP server config.
+- `tsconfig.json` at root with `typeRoots` pointing at both root and `packages/cli` node_modules for `@types/node` resolution.
