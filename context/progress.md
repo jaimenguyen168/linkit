@@ -34,6 +34,10 @@ Update this file after every meaningful implementation change.
 
 ---
 
+- 05 — Linting & Formatting: `oxlint` and `oxfmt` added as dev tools. `.oxlintrc.json` configured with TypeScript, unicorn, and oxc plugins — correctness as error, suspicious as warn. `.oxfmtrc.json` configured to ignore `bun.lock`. Root `package.json` gains `format`, `format:check`, `lint`, `lint:fix`, and `typecheck` scripts. `tsdown` and `typescript` added as dev dependencies. All packages updated to pass lint and format checks.
+
+---
+
 ## In Progress
 
 - None.
