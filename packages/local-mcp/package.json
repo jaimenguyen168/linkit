@@ -1,14 +1,17 @@
 {
-  "name": "linkit-mcp",
+  "name": "@jaimeng168/linkit-mcp",
   "version": "0.0.0",
   "private": true,
   "type": "module",
   "exports": {
     ".": "./src/index.ts"
   },
+  "scripts": {
+    "build": "tsdown"
+  },
   "dependencies": {
+    "@jaimeng168/linkit-core": "workspace:*",
     "@modelcontextprotocol/sdk": "^1.29.0",
-    "linkit-core": "workspace:*",
     "zod": "^4.4.3"
   }
 }

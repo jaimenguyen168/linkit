@@ -13,6 +13,7 @@
         "oxlint": "^1.71.0",
         "tsdown": "^0.22.3",
         "typescript": "^6.0.3",
+        "unrun": "^0.3.1",
       },
     },
     "apps/remote-mcp": {
@@ -21,33 +22,33 @@
       "dependencies": {
         "@clerk/backend": "^3.8.3",
         "@clerk/mcp-tools": "^0.5.0",
+        "@jaimeng168/linkit-core": "workspace:*",
         "@modelcontextprotocol/sdk": "^1.29.0",
         "hono": "^4.12.27",
-        "linkit-core": "workspace:*",
       },
     },
     "packages/cli": {
-      "name": "linkit",
+      "name": "@jaimeng168/linkit",
       "version": "0.0.0",
       "dependencies": {
+        "@jaimeng168/linkit-core": "workspace:*",
         "commander": "^15.0.0",
-        "linkit-core": "workspace:*",
         "zod": "^4.4.3",
       },
     },
     "packages/core": {
-      "name": "linkit-core",
+      "name": "@jaimeng168/linkit-core",
       "version": "0.0.0",
       "dependencies": {
         "zod": "^4.4.3",
       },
     },
     "packages/local-mcp": {
-      "name": "linkit-mcp",
+      "name": "@jaimeng168/linkit-mcp",
       "version": "0.0.0",
       "dependencies": {
+        "@jaimeng168/linkit-core": "workspace:*",
         "@modelcontextprotocol/sdk": "^1.29.0",
-        "linkit-core": "workspace:*",
         "zod": "^4.4.3",
       },
     },
@@ -76,6 +77,12 @@
     "@emnapi/wasi-threads": ["@emnapi/wasi-threads@1.2.2", "", { "dependencies": { "tslib": "^2.4.0" } }, "sha512-c95qOXkHdydNKhscBTebqEC1CVAZpyqOfVfBzQ1qgzyl3gfeldUjIggDbIZgDKsHLgnsM+igH7TJ/eAasaVuMA=="],
 
     "@hono/node-server": ["@hono/node-server@1.19.14", "", { "peerDependencies": { "hono": "^4" } }, "sha512-GwtvgtXxnWsucXvbQXkRgqksiH2Qed37H9xHZocE5sA3N8O8O8/8FA3uclQXxXVzc9XBZuEOMK7+r02FmSpHtw=="],
+
+    "@jaimeng168/linkit": ["@jaimeng168/linkit@workspace:packages/cli"],
+
+    "@jaimeng168/linkit-core": ["@jaimeng168/linkit-core@workspace:packages/core"],
+
+    "@jaimeng168/linkit-mcp": ["@jaimeng168/linkit-mcp@workspace:packages/local-mcp"],
 
     "@jridgewell/gen-mapping": ["@jridgewell/gen-mapping@0.3.13", "", { "dependencies": { "@jridgewell/sourcemap-codec": "^1.5.0", "@jridgewell/trace-mapping": "^0.3.24" } }, "sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA=="],
 
@@ -347,12 +354,6 @@
 
     "json-schema-typed": ["json-schema-typed@8.0.2", "", {}, "sha512-fQhoXdcvc3V28x7C7BMs4P5+kNlgUURe2jmUT1T//oBRMDrqy1QPelJimwZGo7Hg9VPV3EQV5Bnq4hbFy2vetA=="],
 
-    "linkit": ["linkit@workspace:packages/cli"],
-
-    "linkit-core": ["linkit-core@workspace:packages/core"],
-
-    "linkit-mcp": ["linkit-mcp@workspace:packages/local-mcp"],
-
     "linkit-remote-mcp": ["linkit-remote-mcp@workspace:apps/remote-mcp"],
 
     "math-intrinsics": ["math-intrinsics@1.1.0", "", {}, "sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g=="],
@@ -466,6 +467,8 @@
     "undici-types": ["undici-types@8.3.0", "", {}, "sha512-j375ScV60dom+YkPFIfTLcOiPxkN/buHz5GobjLhixFuANaNs3C9l4GmrWqejgXWJ7BbJcFYpTEUkS1Ge8bpZQ=="],
 
     "unpipe": ["unpipe@1.0.0", "", {}, "sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ=="],
+
+    "unrun": ["unrun@0.3.1", "", { "dependencies": { "rolldown": "^1.0.0" }, "peerDependencies": { "synckit": "^0.11.11" }, "optionalPeers": ["synckit"], "bin": { "unrun": "./dist/cli.mjs" } }, "sha512-onIck/oNnCaytwths1ZVp1LK2Gq2hPoyFhiHebObuUXqR3S0uHuLLaBK8K6mRRgV7Ptip8AnNvaUsgzwWwBZuA=="],
 
     "vary": ["vary@1.1.2", "", {}, "sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg=="],
 

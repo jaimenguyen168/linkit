@@ -38,6 +38,10 @@ Update this file after every meaningful implementation change.
 
 ---
 
+- 06 — Bundling: all packages scoped to `@jaimeng168/` namespace. `tsdown.config.ts` and `tsconfig.build.json` added to `packages/core`, `packages/cli`, and `packages/local-mcp`. Build scripts added to each package. Root `package.json` gains `build:core`, `build:cli`, and `build:local-mcp` scripts. `unrun` added as dev dependency (required peer for `tsdown` config file loading). All workspace imports updated from `linkit-core` to `@jaimeng168/linkit-core`.
+
+---
+
 ## In Progress
 
 - None.
