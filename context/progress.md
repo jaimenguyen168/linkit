@@ -46,6 +46,10 @@ Update this file after every meaningful implementation change.
 
 ---
 
+- 08 — Skills: `skills/linkit/SKILL.md` added — defines the linkit skill for agents, documenting MCP tool usage (preferred) and CLI fallback, backed by `@jaimeng168/linkit-core`. Includes tool input schema, bot token setup, and manual verification steps.
+
+---
+
 ## In Progress
 
 - None.
