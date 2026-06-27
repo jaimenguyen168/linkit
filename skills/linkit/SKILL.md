@@ -1,77 +1,73 @@
 ---
 name: linkit
-description: >
-  Use LinkIt to send Telegram messages from agents through the LinkIt MCP tool or CLI fallback.
-  Use when a user asks to send a Telegram message, use LinkIt, interact with the LinkIt toolset,
-  verify LinkIt manually, or choose between LinkIt MCP and CLI workflows.
+description: Send Telegram messages from an agent through the LinkIt MCP `telegram` tool, with the LinkIt CLI (`@jaimeng168/linkit`) as a fallback. Use when a user asks to send a Telegram message, mentions LinkIt, wants to interact with the LinkIt toolset, asks to verify LinkIt manually, or needs to choose between the LinkIt MCP and CLI workflows.
 ---
 
 # LinkIt
 
-LinkIt sends Telegram messages from Claude agents. It is available as an MCP tool (preferred) or
-as a CLI fallback.
+LinkIt sends Telegram messages. It exposes the same operation two ways, both backed by `@jaimeng168/linkit-core`:
 
-## MCP tool (preferred)
+- **MCP tool** (`linkit` server → `telegram` tool) — preferred for agents.
+- **CLI** (`@jaimeng168/linkit`, binary `linkit`) — fallback when MCP is unavailable or for manual verification.
 
-Use whichever LinkIt MCP tool is connected in the current session:
+Both take a `chatId` and a `message`, call the Telegram Bot API, and return `{ ok: true, chatId, messageId }`.
 
-- `mcp__linkit__telegram` — local MCP integration
-- `mcp__claude_ai_LinkIt_Prod__telegram` — remote MCP integration
+## Choosing MCP vs CLI
 
-Both take the same inputs:
+Prefer the **MCP tool** whenever the `linkit` MCP server is connected — it needs no shell and the bot token is supplied by the MCP client environment.
 
-```
-chatId   – Telegram chat ID (e.g. "123456789")
-message  – Text to send
-```
+Use the **CLI** when:
+- The MCP server is not connected in this session.
+- Verifying behavior manually or from a script / terminal.
+- A local bot token (not the MCP env token) should be used.
 
-Call the tool directly. If it succeeds, confirm with the returned `messageId`. If it fails, fall
-back to the CLI.
+## MCP workflow (preferred)
 
-## CLI fallback
+Call the `telegram` tool on the `linkit` MCP server with:
 
-Use the CLI when no MCP tool is available or when the user asks to verify LinkIt manually.
+| Field | Type | Required | Notes |
+|-------|------|----------|-------|
+| `chatId` | string | yes | Telegram chat ID (non-empty) |
+| `message` | string | yes | Message text (non-empty) |
 
-First check if the CLI is installed:
+The bot token is read from `TELEGRAM_BOT_TOKEN` in the MCP server environment (see `.mcp.json`) — do not pass it in the tool input. On success the tool returns `{ ok: true, chatId, messageId }`.
+
+## CLI workflow (fallback)
+
+Check if the correct CLI is installed:
 
 ```bash
-linkit --version
+npm list -g @jaimeng168/linkit --depth=0 2>/dev/null | grep @jaimeng168/linkit
 ```
 
-If not found, install it:
+If the output is empty, install it:
 
 ```bash
 npm install -g @jaimeng168/linkit
 ```
 
-Then set up and send:
+First-time setup writes a token to `~/.config/linkit/config.json` (mode `0600`):
 
 ```bash
-# One-time setup
-linkit init --telegram-bot-token <token>
-
-# Send a message
-linkit telegram <chatId> "<message>"
+linkit init --telegram-bot-token <botToken>
 ```
 
-If `linkit init` has not been run yet, prompt the user to do so before sending.
+Send a message:
 
-## Choosing between MCP and CLI
-
-| Situation | Use |
-|-----------|-----|
-| MCP tool is available in the session | MCP tool |
-| User says "verify LinkIt" or "test the CLI" | CLI |
-| MCP tool call fails | CLI fallback |
-| No MCP configured | CLI |
-
-## Sending notifications at task completion
-
-A common pattern is notifying the user when a long task finishes:
-
-```
-<do the work>
-mcp__linkit__telegram(chatId="<id>", message="Build complete — 3 tests failed, see output above.")
+```bash
+linkit telegram <chatId> <message>
 ```
 
-Keep messages short and actionable. Include the outcome and any next step the user needs to take.
+On success it prints the JSON result, e.g. `{"ok":true,"chatId":"123","messageId":42}`. If no token is configured it errors with `Telegram bot token is required. Run \`linkit init\`.`
+
+Run the CLI without a global install via `npx @jaimeng168/linkit telegram <chatId> <message>`.
+
+## Verifying manually
+
+To confirm LinkIt works end to end, send a test message to a known chat ID and check the response includes `ok: true` and a numeric `messageId`. Use the CLI for this so the result JSON is visible in the terminal:
+
+```bash
+linkit telegram <yourChatId> "LinkIt test message"
+```
+
+A non-`ok` response or a thrown error surfaces the Telegram API `description` (e.g. invalid token, unknown chat ID).
