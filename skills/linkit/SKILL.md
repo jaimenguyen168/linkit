@@ -32,6 +32,20 @@ back to the CLI.
 
 Use the CLI when no MCP tool is available or when the user asks to verify LinkIt manually.
 
+First check if the CLI is installed:
+
+```bash
+linkit --version
+```
+
+If not found, install it:
+
+```bash
+npm install -g @jaimeng168/linkit
+```
+
+Then set up and send:
+
 ```bash
 # One-time setup
 linkit init --telegram-bot-token <token>
