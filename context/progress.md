@@ -42,6 +42,10 @@ Update this file after every meaningful implementation change.
 
 ---
 
+- 07 — Publish: all packages prepared for npm publishing. `private` removed from `core`, `cli`, and `local-mcp`. Added `files`, `main`, `module`, `types`, `exports`, `publishConfig`, `bin`, `pack:dry`, and `prepublishOnly` scripts to each package. `#!/usr/bin/env node` shebang added to CLI entry. `release:pack:core`, `release:pack:cli`, `release:pack:local-mcp` scripts added to root. `@jaimeng168/linkit-core@0.0.0` and `@jaimeng168/linkit@0.0.1` published to npm.
+
+---
+
 ## In Progress
 
 - None.

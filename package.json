@@ -17,7 +17,10 @@
     "dev:remote-mcp": "bun run apps/remote-mcp/src/index.ts",
     "build:core": "bun run --filter @jaimeng168/linkit-core build",
     "build:cli": "bun run --filter @jaimeng168/linkit build",
-    "build:local-mcp": "bun run --filter @jaimeng168/linkit-mcp build"
+    "build:local-mcp": "bun run --filter @jaimeng168/linkit-mcp build",
+    "release:pack:core": "bun run --filter @jaimeng168/linkit-core pack:dry",
+    "release:pack:cli": "bun run --filter @jaimeng168/linkit pack:dry",
+    "release:pack:local-mcp": "bun run --filter @jaimeng168/linkit-mcp pack:dry"
   },
   "dependencies": {
     "prettier": "^3.8.4"

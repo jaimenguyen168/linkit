@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { Command } from "commander";
 import { sendTelegramMessage } from "@jaimeng168/linkit-core";
 import { homedir } from "os";
